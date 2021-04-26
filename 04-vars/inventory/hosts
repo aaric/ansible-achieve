@@ -1,0 +1,7 @@
+[agents]
+k8s-node01
+k8s-node02
+
+[agents:vars]
+ansible_connection=ssh
+ansible_user=vagrant

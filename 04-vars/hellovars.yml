@@ -1,0 +1,6 @@
+- name: hello vars
+  hosts: agents
+  tasks:
+    - name: test vars
+      debug:
+        msg: "ansible_connection = {{ ansible_connection }}, ansible_user = {{ ansible_user }}"

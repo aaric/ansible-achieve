@@ -1,0 +1,19 @@
+- name: hello loop
+  hosts: agents
+  vars:
+    numbers:
+      - one
+      - two
+      - three
+    letters:
+      - a
+      - b
+  tasks:
+    - name: test loop
+      debug:
+      #   msg: "{{ item }}"
+      # with_items: "{{ numbers }}"
+        msg: "{{ item[0] }} - {{ item[1] }}"
+      with_nested:
+        - "{{ numbers }}"
+        - "{{ letters }}"

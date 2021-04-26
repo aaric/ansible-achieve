@@ -1,0 +1,7 @@
+- name: hello standard
+  hosts: agents
+  gather_facts: no
+  tasks:
+    - name: test standard
+      debug:
+        msg: "linux_version = {{ linux_version }}"

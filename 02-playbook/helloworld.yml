@@ -1,0 +1,10 @@
+- name: hello world
+  hosts: agents
+  vars:
+    greetings: hello vars
+  vars_files:
+    - vars/test.yml
+  tasks:
+    - name: test debug
+      debug:
+        msg: "{{ greetings }}"
