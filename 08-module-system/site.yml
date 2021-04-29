@@ -1,0 +1,25 @@
+- name: hello facts
+  hosts: agents
+  gather_facts: yes
+  become: yes
+  tasks:
+    - name: test facts
+      debug:
+        msg: "{{ ansible_hostname }} : {{ ansible_distribution }} - {{ ansible_distribution_version }}"
+    - name: test create group
+      group:
+        name: k8s
+    - name: test create user
+      user:
+        name: k8sadmin
+        password: "{{ 'k8sadmin' | password_hash('sha512') }}"
+        group: k8s
+    - name: test delete user
+      user:
+        name: k8sadmin
+        state: absent
+        remove: yes
+    - name: test delete group
+      group:
+        name: k8s
+        state: absent

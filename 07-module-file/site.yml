@@ -4,11 +4,29 @@
   tasks:
     - name: test create directory
       file:
-        path: test
+        path: /home/vagrant/test
         state: directory
         #state: absent
-    - name: test copy file
+    - name: test copy file to remote
       copy:
         src: test.txt
-        dest: test/test.txt
+        dest: /home/vagrant/test/test.txt
         backup: yes
+    - name: test jinja
+      template:
+        src: templates/test.j2
+        dest: /home/vagrant/test/test.cfg
+    - name: test copy remote file
+      # ansible-doc -s fetch
+      fetch:
+        src: /home/vagrant/test/test.cfg
+        dest: ./tmp/
+        flat: yes
+    - name: test uri
+      uri:
+        url: https://www.baidu.com
+        return_content: yes
+      register: result
+    - name: print result
+      debug:
+        msg: "{{ result }}"

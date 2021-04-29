@@ -13,7 +13,7 @@ sudo yum install -y ansible
 > [User Guide - All modules - v2.9](https://docs.ansible.com/ansible/2.9/modules/list_of_all_modules.html)
 
 |No.|Hostname|IP Address|Remark|
-|:-:|:-:|:-:|:-:|---|
+|:-:|:-:|:-:|---|
 |1|k8s-master|`172.16.80.20`|*ansible installed*|
 |2|k8s-node01|`172.16.80.21`||
 |3|k8s-node02|`172.16.80.22`||

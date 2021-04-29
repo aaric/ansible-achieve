@@ -1,0 +1,4 @@
+[k8s]
+{% for ip in range(21,31) %}
+k8s-node{{ "%02d" | format(ip-20) }} - 172.16.80.{{ ip - 1 }}
+{% endfor %}
