@@ -1,0 +1,21 @@
+- name: hello packaging
+  hosts: agents
+  gather_facts: yes
+  become: yes
+  tasks:
+    # - name: test yum install
+    #   yum:
+    #     name: git
+    #   when: ansible_facts['distribution'] == "CentOS"
+    # - name: test yum remove
+    #   yum:
+    #     name: git
+    #     state: absent
+    #   when: ansible_facts['distribution'] == "CentOS"
+    - name: test package install
+      package:
+        name: git
+    - name: test package install
+      package:
+        name: git
+        state: absent
