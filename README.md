@@ -333,7 +333,7 @@ cat > site.yml <<-'EOF'
     - name: test package install
       package:
         name: git
-    - name: test package install
+    - name: test package remove
       package:
         name: git
         state: absent
