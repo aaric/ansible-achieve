@@ -10,7 +10,7 @@ sudo yum install -y ansible
 
 ## 2. Usage
 
-> [User Guide - All modules - v2.9](https://docs.ansible.com/ansible/2.9/modules/list_of_all_modules.html)
+> [User Guide - Module Index](https://docs.ansible.com/ansible/2.9/modules/modules_by_category.html)
 
 |No.|Hostname|IP Address|Remark|
 |:-:|:-:|:-:|---|
@@ -346,6 +346,71 @@ ansible agents -m shell -a "git version"
 # setup
 ansible agents -m setup --tree ./tmp/facts
 ansible agents -m setup -a "filter=ansible_distribution*"
+```
+
+### 2.10 module-net-tools
+
+```bash
+# standard
+cp -r ../06-standard/* .
+
+# inventory.tar.gz
+tar -zcvf inventory.tar.gz inventory/
+
+# site.yml
+cat > site.yml <<-'EOF'
+- name: hello net tools
+  hosts: agents
+  gather_facts: no
+  tasks:
+    - name: test get_url
+      get_url:
+        url: http://nginx.org/download/nginx-1.20.0.tar.gz
+        dest: /home/vagrant/
+        checksum: sha256:54ef91ec8ebcaa486c640c09c92d832eaeaff149b10ee52ef140f407b1b04d1c
+    - name: test unarchive remote
+      unarchive:
+        src: /home/vagrant/nginx-1.20.0.tar.gz
+        dest: /home/vagrant/
+        remote_src: yes
+    - name: test scp and unarchive remote
+      unarchive:
+        src: inventory.tar.gz
+        dest: /home/vagrant/
+EOF
+
+# playbook
+ansible-playbook site.yml
+ansible agents -m shell -a "ls -l /home/vagrant/nginx-1.20.0"
+ansible agents -m shell -a "ls -l /home/vagrant/inventory"
+
+# valid
+ansible agents -m shell -a "md5sum nginx-1.20.0.tar.gz"
+ansible agents -m shell -a "sha256sum nginx-1.20.0.tar.gz"
+```
+
+### 2.11 module-commands
+
+```bash
+# standard
+cp -r ../06-standard/* .
+
+# site.yml
+cat > site.yml <<-'EOF'
+- name: hello commands
+  hosts: agents
+  gather_facts: no
+  tasks:
+    - name: test command
+      command: cat /etc/hosts
+      register: result_hosts
+    - name: print result hosts
+      debug:
+        msg: "{{ result_hosts }}"
+EOF
+
+# playbook
+ansible-playbook site.yml
 ```
 
 ## 3. FAQ
