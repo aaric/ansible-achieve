@@ -1,0 +1,10 @@
+- name: hello commands
+  hosts: agents
+  gather_facts: no
+  tasks:
+    - name: test command
+      command: cat /etc/hosts
+      register: result_hosts
+    - name: print result hosts
+      debug:
+        msg: "{{ result_hosts }}"
